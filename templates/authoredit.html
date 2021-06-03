@@ -1,0 +1,50 @@
+
+{%  extends 'publisher.html' %}
+
+
+
+{% block main %}
+    <div class="panel panel-primary">
+                <div class="panel-heading">Edit Author information</div>
+                <div class="panel-body">
+                    <form class="form-horizontal" method="post" action="">
+                        <div class="form-group {% if error %}has-error{% endif %}">
+                            <label for="author_name" class="col-sm-2 control-label">Author name</label>
+                            <div class="col-sm-3">
+                                 <input class="form-control" type="text" name="re_author_name"id="author_name" value="{{ author_obj.name }}">
+                                <span  class="help-block">{{ error }}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="bookedit" class="col-sm-2 control-label">Books</label>
+                            <div class="col-sm-3 ">
+                                <select class="form-control" name="bookid" id="bookedit" multiple>
+                                {% for book in all_books %}
+                                    {% if book in author_obj.books.all %}
+                                        <option selected value="{{ book.id }}">{{ book.name }}</option>
+                                    {% else %}
+                                        <option value="{{ book.id }}">{{ book.name }}</option>
+                                    {% endif %}
+
+                                {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" >
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">Submit</button>
+                            </div>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+{% endblock %}
+
+{% block author_active %}
+    active
+{% endblock %}
+{% block pub_active %}
+
+{% endblock %}

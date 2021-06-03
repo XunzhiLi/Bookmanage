@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'Bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'dsb/dashboard.css' %}">
+</head>
+<body>
+{% include 'nav.html' %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="{% block pub_active %}active{% endblock %}"><a href="{% url 'publisher' %}">Publisher <span
+                        class="sr-only">(current)</span></a></li>
+
+                <li class="{% block book_active %}{% endblock %}"><a href="{% url 'book' %}">Books</a></li>
+                <li class="{% block author_active %}{% endblock %}"><a href="{% url 'author' %}">Author</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            {% block main %}
+                <h2 class="sub-header">Publisher</h2>
+                <a class="btn btn-primary btn-sm" href="{% url 'pub_add' %}">add</a>
+                <div class="table-responsive">
+                    <table class="table  table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>index</th>
+                            <th>id</th>
+                            <th>publisher</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in all_publishers %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ i.id }}</td>
+                                <td>{{ i.name }}</td>
+                                <td><a class="btn-danger btn-sm" href="{% url 'del' 'publisher' i.id %}">delete</a> <a
+                                        class="btn-primary btn-sm" href="/publisheredit/?pk={{ i.id }}">edit</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% load mytags %}
+                {% pagenavi 10%}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+</body>
+
+
+</html>

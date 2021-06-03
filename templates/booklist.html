@@ -1,0 +1,46 @@
+{% extends 'publisher.html' %}
+{% block book_active %}
+    active
+{% endblock %}
+
+{% block pub_active %}
+
+{% endblock %}
+{% block main %}
+    <h2 class="sub-header">Books</h2>
+        <a class="btn btn-primary btn-sm" href="/bookadd/">add</a>
+          <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>index</th>
+                        <th>id</th>
+                        <th>bookname</th>
+                        <th>publisher</th>
+                        <th>Operations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for book in allbooks %}
+                        <tr>
+                            <td>
+                                {{ forloop.counter }}
+                            </td>
+                            <td>
+                                {{ book.pk }}
+                            </td>
+                            <td>
+                                {{ book.name }}
+                            </td>
+                            <td>
+                                {{ book.publisher.name }}
+                            </td>
+                            <td>
+                                <a class="btn-danger btn-sm" href="{% url 'del' 'book' book.id %}">delete</a>   <a class="btn-primary btn-sm" href="/bookedit/?pk={{ book.id }}">edit</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+          </div>
+{% endblock %}

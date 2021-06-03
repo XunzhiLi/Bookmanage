@@ -1,0 +1,54 @@
+{%  extends 'publisher.html' %}
+{% block pub_active %}
+
+{% endblock %}
+
+{% block author_active %}
+    active
+{% endblock %}
+{% block main %}
+    <h2 class="sub-header">Author</h2>
+        <a class="btn btn-primary btn-sm" href="/authoradd/">add</a>
+          <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>index</th>
+                        <th>id</th>
+                        <th>author</th>
+                        <th>books</th>
+                        <th>Operations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for each in info %}
+                        <tr>
+                            <td>
+                                {{ forloop.counter }}
+                            </td>
+                            <td>
+                                {{ each.id}}
+                            </td>
+                            <td>
+                                {{ each.name }}
+                            </td>
+                            <td>
+                                {% for bk  in each.books.all %}
+                                    《{{ bk.name }}》
+                                {% endfor %}
+
+                            </td>
+
+                            <td>
+                                <a class="btn-danger btn-sm" href="{% url 'del' 'author' each.id %}">delete</a>
+                                <a class="btn-primary btn-sm" href="{% url 'author_edit' %}?pk={{ each.id }}">edit</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+          </div>
+    {% load mytags %}
+    {% pagenavi 3 %}
+{% endblock %}
+
